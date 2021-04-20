@@ -12,7 +12,7 @@ export default class Board extends React.Component {
       thierPiece: null,
       turn: 0
     }
-    this.componentWillMount = this.componentWillMount.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleThierPiece = this.handleThierPiece.bind(this);
     this.handleYourPiece = this.handleYourPiece.bind(this);
@@ -21,7 +21,7 @@ export default class Board extends React.Component {
     this.getBoard = this.getBoard.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.getUserId() !== 0) {
       this.interval = setInterval(() => {
         fetch("http://localhost:5000/ChessAPI/getBoard/" + this.props.getUserId(), {
@@ -121,9 +121,19 @@ export default class Board extends React.Component {
   }
 
   render() {
+    console.log("here")
     let chessboard, renderedButton, playerTurn;
     if(this.props.getUserId() !== 0 && this.state.board.length === 8){
-      chessboard = this.state.board.map((row) => <Row row={row} getBoard={this.getBoard} userColor={this.state.userColor} setYours={this.handleYourPiece} setThiers={this.handleThierPiece} getYours={this.getYourPiece} getThiers={this.getThierPiece} />);
+      let board = this.state.board.slice();
+      if(this.state.userColor === "Black"){
+            console.log("black board getting flipped")
+        for (let x = 0; x < 8; x++){
+          for(let y = 0; y < 8; y++){
+            board[x][7-y] = this.state.board[x][y];
+          }
+        }
+      }
+      chessboard = board.map((row) => <Row row={row} getBoard={this.getBoard} userColor={this.state.userColor} setYours={this.handleYourPiece} setThiers={this.handleThierPiece} getYours={this.getYourPiece} getThiers={this.getThierPiece} />);
       renderedButton = (this.state.thierPiece != null && this.state.yourPiece != null) ? <button onClick={this.handleSubmit}>Submit Move</button> : <></>
       playerTurn = (this.state.turn % 2 === 0) ? <h2 className="center">White's turn to move.</h2> : <h2 className="center">Black's turn to move.</h2>
     }
