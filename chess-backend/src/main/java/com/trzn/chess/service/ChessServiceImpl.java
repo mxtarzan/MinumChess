@@ -671,10 +671,10 @@ public class ChessServiceImpl implements ChessService {
 				}
 				break;
 		}
-    System.out.println(board.toString());
+    System.out.println(board);
 	System.out.println(from);
 	System.out.println(to);
-		System.out.println(board.doMove(new com.github.bhlangonijr.chesslib.move.Move(from,to)));
+	System.out.println(board.doMove(new com.github.bhlangonijr.chesslib.move.Move(from,to)));
     System.out.println(board.toString());
 		b.setfenNotation(board.getFen());
 		b.setTurn(b.getTurn()+1);

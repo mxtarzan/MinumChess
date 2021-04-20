@@ -57,16 +57,24 @@ export default class Board extends React.Component {
                 console.log("black board getting flipped")
                 for (let x = 0; x < 8; x++) {
                   for (let y = 0; y < 4; y++) {
-                    /*
+                    
+                    let row = result[x][7 - y].row;
+                    let col = result[x][7 - y].col;
                     let type = result[x][7 - y].type;
                     let color = result[x][7 - y].color
-                    result[x][7 - y].type = result[x][y].type
                     result[x][7 - y].color = result[x][y].color
+                    result[x][7 - y].type = result[x][y].type
+                    result[x][7 - y].row = result[x][y].row
+                    result[x][7 - y].col = result[x][y].col
+                    result[x][y].color = color
                     result[x][y].type = type
-                    result[x][y].color = color*/
+                    result[x][y].row = row
+                    result[x][y].col = col
+                    /*
                     let temp = result[x][7-y];
                     result[x][7-y] = result[x][y]
-                    result[x][y] = temp;
+                    result[x][y] = temp;*/
+                    
                   }
                 }
               }

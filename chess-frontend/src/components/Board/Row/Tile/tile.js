@@ -280,10 +280,12 @@ export default class Tile extends React.Component {
           }
           else if ((board[yours.row - 1][yours.col + 1] === tile && board[yours.row - 1][yours.col + 1].type === "Pawn") ||
             (board[yours.row - 1][yours.col + 1] === tile && board[yours.row - 1][yours.col + 1].type === "Knight") ||
-            (board[yours.row - 1][yours.col + 1] === tile && board[yours.row - 1][yours.col + 1].type === "Bishop") ||
             (board[yours.row - 1][yours.col + 1] === tile && board[yours.row - 1][yours.col + 1].type === "Queen") ||
+            (board[yours.row - 1][yours.col + 1] === tile && board[yours.row - 1][yours.col + 1].type === "Bishop") ||
+            (board[yours.row - 1][yours.col + 1] === tile && board[yours.row - 1][yours.col + 1].type === "Rook") ||
             (board[yours.row - 1][yours.col + 1] === tile && board[yours.row - 1][yours.col + 1].type === "King") ||
             (board[yours.row - 1][yours.col - 1] === tile && board[yours.row - 1][yours.col - 1].type === "Pawn") ||
+            (board[yours.row - 1][yours.col - 1] === tile && board[yours.row - 1][yours.col - 1].type === "Rook") ||
             (board[yours.row - 1][yours.col - 1] === tile && board[yours.row - 1][yours.col - 1].type === "Knight") ||
             (board[yours.row - 1][yours.col - 1] === tile && board[yours.row - 1][yours.col - 1].type === "Bishop") ||
             (board[yours.row - 1][yours.col - 1] === tile && board[yours.row - 1][yours.col - 1].type === "Queen") ||
