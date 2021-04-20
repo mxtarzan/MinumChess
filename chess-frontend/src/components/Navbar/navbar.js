@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom';
-import GoogleBtn from '../GoogleBtn/googleBtn';
+import GoogleBtn from '../GoogleBtn/GoogleBtn';
 import Sidebar from './Sidebar/sidebar';
 import './styles/navbar.css';
 

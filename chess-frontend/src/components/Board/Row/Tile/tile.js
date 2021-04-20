@@ -472,7 +472,7 @@ export default class Tile extends React.Component {
     let renderedTile;
 
     let blackTile = ((tile.row + 1) * 7 + tile.col) % 2 === 0;
-
+    if(this.props.userColor === "Black") blackTile = !blackTile;
     let icon;
     if (tile.type === "Pawn") icon = <FontAwesomeIcon size="2x" icon={faChessPawn} />
     else if (tile.type === "Knight") icon = <FontAwesomeIcon size="2x" icon={faChessKnight} />

@@ -24,29 +24,6 @@ export default class Board extends React.Component {
   componentDidMount() {
     if (this.props.getUserId() !== 0) {
       this.interval = setInterval(() => {
-        fetch("http://localhost:5000/ChessAPI/getBoard/" + this.props.getUserId(), {
-          method: 'GET',
-          headers: {
-            "Content-type": "application/json"
-          }
-        })
-          .then(res => {
-            if (res.status === 418) {
-              console.log("Game over")
-            }
-            else { 
-              console.log("not over") 
-            }
-            return res.json()
-          })
-          .then(
-            (result) => {
-              this.setState({ board: result });
-            },
-            (error) => {
-              console.log("error in fetching board");
-            }
-          )
         fetch("http://localhost:5000/ChessAPI/getColor/" + this.props.getUserId(), {
           method: 'GET',
           headers: {
@@ -59,6 +36,46 @@ export default class Board extends React.Component {
               this.setState({ userColor: result });
             }
           );
+        fetch("http://localhost:5000/ChessAPI/getBoard/" + this.props.getUserId(), {
+          method: 'GET',
+          headers: {
+            "Content-type": "application/json"
+          }
+        })
+          .then(res => {
+            if (res.status === 418) {
+              console.log("Game over")
+            }
+            else {
+              console.log("not over")
+            }
+            return res.json()
+          })
+          .then(
+            (result) => {
+              if (this.state.userColor === "Black") {
+                console.log("black board getting flipped")
+                for (let x = 0; x < 8; x++) {
+                  for (let y = 0; y < 4; y++) {
+                    /*
+                    let type = result[x][7 - y].type;
+                    let color = result[x][7 - y].color
+                    result[x][7 - y].type = result[x][y].type
+                    result[x][7 - y].color = result[x][y].color
+                    result[x][y].type = type
+                    result[x][y].color = color*/
+                    let temp = result[x][7-y];
+                    result[x][7-y] = result[x][y]
+                    result[x][y] = temp;
+                  }
+                }
+              }
+              this.setState({ board: result });
+            },
+            (error) => {
+              console.log("error in fetching board");
+            }
+          )
         fetch("http://localhost:5000/ChessAPI/getTurn/" + this.props.getUserId(), {
           method: 'GET',
           headers: {
@@ -123,16 +140,18 @@ export default class Board extends React.Component {
   render() {
     console.log("here")
     let chessboard, renderedButton, playerTurn;
-    if(this.props.getUserId() !== 0 && this.state.board.length === 8){
-      let board = this.state.board.slice();
-      if(this.state.userColor === "Black"){
-            console.log("black board getting flipped")
+    if (this.props.getUserId() !== 0 && this.state.board.length === 8) {
+      let board = [...this.state.board];
+      /*if(this.state.userColor === "Black"){
+        console.log("black board getting flipped")
         for (let x = 0; x < 8; x++){
-          for(let y = 0; y < 8; y++){
-            board[x][7-y] = this.state.board[x][y];
+          for(let y = 0; y < 4; y++){
+            let temp = board[x][7-y];
+            board[x][7-y] = board[x][y]
+            board[x][y] = temp
           }
         }
-      }
+      }*/
       chessboard = board.map((row) => <Row row={row} getBoard={this.getBoard} userColor={this.state.userColor} setYours={this.handleYourPiece} setThiers={this.handleThierPiece} getYours={this.getYourPiece} getThiers={this.getThierPiece} />);
       renderedButton = (this.state.thierPiece != null && this.state.yourPiece != null) ? <button onClick={this.handleSubmit}>Submit Move</button> : <></>
       playerTurn = (this.state.turn % 2 === 0) ? <h2 className="center">White's turn to move.</h2> : <h2 className="center">Black's turn to move.</h2>

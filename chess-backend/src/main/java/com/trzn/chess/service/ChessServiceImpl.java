@@ -196,6 +196,7 @@ public class ChessServiceImpl implements ChessService {
 				}
 			}
 		}
+		System.out.println("grabbing board");
 		return board;
 	}
 

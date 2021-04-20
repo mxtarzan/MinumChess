@@ -7,6 +7,6 @@ create table boards(
    fen_notation VARCHAR(256) DEFAULT 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1' not null,
    white_id VARCHAR(100),
    black_id VARCHAR(100),
-   turn INT DEFAULT 0
+   turn INT DEFAULT 0
 );
 commit;
