@@ -1,0 +1,15 @@
+com/trzn/chess/service/ChessService.class
+com/trzn/chess/DTO/Move.class
+com/trzn/chess/service/UserServiceImpl.class
+com/trzn/chess/api/UserAPI.class
+com/trzn/chess/api/ChessAPI.class
+com/trzn/chess/DTO/Piece.class
+com/trzn/chess/ChessApplication.class
+com/trzn/chess/DTO/UserDTO.class
+com/trzn/chess/repository/UserRepository.class
+com/trzn/chess/repository/ChessRepository.class
+com/trzn/chess/service/ChessServiceImpl.class
+com/trzn/chess/entity/Boards.class
+com/trzn/chess/exception/UserException.class
+com/trzn/chess/service/UserService.class
+com/trzn/chess/entity/Users.class

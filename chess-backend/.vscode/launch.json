@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch ChessApplication",
+            "request": "launch",
+            "mainClass": "com.trzn.chess.ChessApplication",
+            "projectName": "MinumChess"
+        }
+    ]
+}

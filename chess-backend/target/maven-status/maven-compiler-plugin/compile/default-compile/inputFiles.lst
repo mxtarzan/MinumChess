@@ -1,0 +1,15 @@
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/service/UserService.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/service/ChessService.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/entity/Users.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/DTO/UserDTO.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/service/UserServiceImpl.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/repository/UserRepository.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/service/ChessServiceImpl.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/DTO/Move.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/api/UserAPI.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/repository/ChessRepository.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/exception/UserException.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/ChessApplication.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/entity/Boards.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/api/ChessAPI.java
+/home/tarzan/Projects/ChessBackend/src/main/java/com/trzn/chess/DTO/Piece.java
