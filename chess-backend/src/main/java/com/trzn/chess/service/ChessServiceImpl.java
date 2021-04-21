@@ -26,32 +26,22 @@ public class ChessServiceImpl implements ChessService {
 		System.out.println(userId);
 		Boards board = new Boards();
 		board.setWhiteId(userId);
-		board.setfenNotation(
-				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
+		board.setfenNotation("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 		repo.save(board);
 		return true;
 	}
 
-	public String getColor(String userId) {
-		Boards board = repo.findByWhiteId(userId);
-		if (board != null) {
-			return "White";
-		}
-		board = repo.findByBlackId(userId);
-		if (board != null) {
-			return "Black";
-		}
-		return "N/A";
-	}
-
 	@Override
 	public Boards getBoard(String userId) {
+		System.out.println("grabbing board for " + userId);
 		Boards b = repo.findByWhiteId(userId);
 		if(b == null) b = repo.findByBlackId(userId);
-		else {
+		if(b == null){ 
+			b = new Boards();
+			b.setfenNotation(
+				"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 			System.out.println("no board for user");
 		}
-		System.out.println("grabbing board");
 		return b;
 	}
 
@@ -59,19 +49,25 @@ public class ChessServiceImpl implements ChessService {
 	public void chessMove(Move move) {
 		Boards b;
 		b = repo.findByWhiteId(move.getUserId());
-		boolean white = true;
 		if(b ==null){
 			b = repo.findByBlackId(move.getUserId());
-			white = false;
-		}
-		if(!white){
-			move.setYourRow(7-move.getYourRow());
-			move.setThierRow(7-move.getThierRow());
 		}
 		System.out.printf("thier piece at: %d %d, your piece at: %d %d/n", move.getThierCol(), move.getThierRow(), move.getYourCol(), move.getYourRow());
 		Board board = new Board();
 		board.loadFromFen(b.getfenNotation());
-
+		if(move.getUserId().equals(b.getBlackId())){
+			move.setThierCol(7-move.getThierCol());
+			move.setThierRow(move.getThierRow());
+			move.setYourCol(7-move.getYourCol());
+			move.setYourRow(move.getYourRow());
+		}
+		else{
+			move.setThierCol(move.getThierCol());
+			move.setThierRow(7-move.getThierRow());
+			move.setYourCol(move.getYourCol());
+			move.setYourRow(7-move.getYourRow());
+			
+		}
 		Square from = null;
 		Square to = null;
 		switch(move.getYourCol()){
@@ -548,25 +544,9 @@ public class ChessServiceImpl implements ChessService {
 		return rooms;
 	}
 
-	public Integer getTurn(String userId) {
-		Boards board = repo.findByWhiteId(userId);
-		if (board != null) {
-			return board.getTurn();
-		}
-		board = repo.findByBlackId(userId);
-		if (board != null) {
-			return board.getTurn();
-		}
-		return 0;
-	}
-
 	public Boolean joinRoom(Integer boardId, String userId) {
 		Optional<Boards> b = repo.findById(boardId);
 		Boards board = b.orElseThrow();
-		
-		if(board.getWhiteId() == userId) {
-			return false;
-		}
 		board.setBlackId(userId);
 		repo.save(board);
 		return true;

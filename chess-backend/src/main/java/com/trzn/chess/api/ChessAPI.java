@@ -39,16 +39,6 @@ public class ChessAPI {
 		return new ResponseEntity<Boolean>(service.createRoom(userId), HttpStatus.CREATED);
 	}
 
-	@GetMapping(value = "getColor/{userId}")
-	public ResponseEntity<String> getColor(@PathVariable String userId) {
-		return new ResponseEntity<String>(service.getColor(userId), HttpStatus.OK);
-	}
-
-	@GetMapping(value = "getTurn/{userId}")
-	public ResponseEntity<Integer> getTurn(@PathVariable String userId) {
-		return new ResponseEntity<Integer>(service.getTurn(userId), HttpStatus.OK);
-	}
-
 	@GetMapping(value = "joinRoom/{boardId}/{userId}")
 	public ResponseEntity<Boolean> joinRoom(@PathVariable Integer boardId, @PathVariable String userId) {
 		return new ResponseEntity<Boolean>(service.joinRoom(boardId, userId), HttpStatus.ACCEPTED);
