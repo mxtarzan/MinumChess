@@ -62,6 +62,7 @@ export default class GoogleBtn extends Component {
           buttonText='Logout'
           onLogoutSuccess={ this.logout }
           onFailure={ this.handleLogoutFailure }
+          theme="dark"
         >
         </GoogleLogout>: <GoogleLogin
           clientId={ CLIENT_ID }
@@ -70,6 +71,7 @@ export default class GoogleBtn extends Component {
           onFailure={ this.handleLoginFailure }
           cookiePolicy={ 'single_host_origin' }
           responseType='code,token'
+          theme="dark"
         />
       }
     </div>

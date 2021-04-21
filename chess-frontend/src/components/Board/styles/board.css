@@ -2,3 +2,6 @@
     display : table;
     margin:auto
 }
+.darkmode{
+    background-color: gray;
+}
