@@ -9,31 +9,33 @@ export default class Tile extends React.Component {
         }
         this.handlePieceClick = this.handlePieceClick.bind(this);
     }
-    handlePieceClick(e) { 
-        
-        let tile = this.props.tile;
-        let yours = this.props.getYours();
-        console.log(this.props.userId);
-        console.log(this.props.getBoard().whiteId)
+    handlePieceClick(e) {
         let isWhiteUser = this.props.userId === this.props.getBoard().whiteId;
-        if(isWhiteUser){
-            console.log("white move")
-            if(isNaN(tile.type) && tile.type === tile.type.toUpperCase()){
-                this.props.setYours(tile)
-                this.props.setThiers(null);
+        let whitesMove = this.props.getBoard().turn % 2 === 0;
+        if (isWhiteUser === whitesMove) {
+            let tile = this.props.tile;
+            let yours = this.props.getYours();
+            console.log(this.props.userId);
+            console.log(this.props.getBoard().whiteId)
+            if (isWhiteUser) {
+                console.log("white move")
+                if (isNaN(tile.type) && tile.type === tile.type.toUpperCase()) {
+                    this.props.setYours(tile)
+                    this.props.setThiers(null);
+                }
+                else if (yours !== null) {
+                    this.props.setThiers(tile)
+                }
             }
-            else if(yours !== null){
-                this.props.setThiers(tile)
-            }
-        }
-        else{
-            console.log("black move")
-            if(isNaN(tile.type) && tile.type === tile.type.toLowerCase()){
-                this.props.setYours(tile)
-                this.props.setThiers(null);
-            }
-            else if(yours !== null){
-                this.props.setThiers(tile)
+            else {
+                console.log("black move")
+                if (isNaN(tile.type) && tile.type === tile.type.toLowerCase()) {
+                    this.props.setYours(tile)
+                    this.props.setThiers(null);
+                }
+                else if (yours !== null) {
+                    this.props.setThiers(tile)
+                }
             }
         }
     }
@@ -94,8 +96,8 @@ export default class Tile extends React.Component {
         }
         let tileColor = ((tile.row * 7 + tile.col) % 2 === 0) ? "whitetile" : "blacktile";
         let selected = ""
-        if(this.props.getYours() !== null && this.props.getYours().row === tile.row && this.props.getYours().col === tile.col) selected = "yourPiece";
-        if(this.props.getThiers() !== null && this.props.getThiers().row === tile.row && this.props.getThiers().col === tile.col) selected = "thierPiece";
+        if (this.props.getYours() !== null && this.props.getYours().row === tile.row && this.props.getYours().col === tile.col) selected = "yourPiece";
+        if (this.props.getThiers() !== null && this.props.getThiers().row === tile.row && this.props.getThiers().col === tile.col) selected = "thierPiece";
         return (
             <div className={"tab " + tileColor} id={selected} onClick={this.handlePieceClick}>{square}</div>
         );
