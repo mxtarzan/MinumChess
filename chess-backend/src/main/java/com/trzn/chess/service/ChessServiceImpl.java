@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 import com.github.bhlangonijr.chesslib.Board;
 import com.github.bhlangonijr.chesslib.Square;
 import com.trzn.chess.DTO.Move;
-import com.trzn.chess.DTO.Piece;
 import com.trzn.chess.entity.Boards;
 import com.trzn.chess.repository.ChessRepository;
 
@@ -46,158 +45,14 @@ public class ChessServiceImpl implements ChessService {
 	}
 
 	@Override
-	public Piece[][] getBoard(String userId) {
-		Piece[][] board = new Piece[8][8];
+	public Boards getBoard(String userId) {
 		Boards b = repo.findByWhiteId(userId);
 		if(b == null) b = repo.findByBlackId(userId);
-		if (repo.findByWhiteId(userId) != null) {
-			String sBoard = b.getfenNotation();
-			String fen = sBoard.split(" ")[0];
-			int row = 7;
-			int col = 0;
-			for (int i = 0; i < fen.length(); i++) {
-				char x = fen.charAt(i);
-				String color = null;
-				String type = null;
-				if (x == 'p') {
-					type = "Pawn";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'r') {
-					type = "Rook";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'n') {
-					type = "Knight";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'b') {
-					type = "Bishop";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'k') {
-					type = "King";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'q') {
-					type = "Queen";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				}else if (x == 'P'){
-					type = "Pawn";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				}else if (x == 'R') {
-					type = "Rook";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'N') {
-					type = "Knight";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'B') {
-					type = "Bishop";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'K') {
-					type = "King";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'Q') {
-					type = "Queen";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				}else if (x == '/'){
-					row--;
-					col = 0;
-				}else{
-					int xx = x - '0';
-					for (int ii = 0; ii < xx; ii++){
-						board[row][col] = new Piece(color, type, row, col++);
-					}
-				}
-				
-			}
-		} else if (repo.findByBlackId(userId) != null) {
-			b = repo.findByBlackId(userId);
-			String sBoard = b.getfenNotation();
-			String fen = sBoard.split(" ")[0];
-			int row = 0;
-			int col = 0;
-			for (int i = 0; i < fen.length(); i++) {
-				char x = fen.charAt(i);
-				String color = null;
-				String type = null;
-				if (x == 'p') {
-					type = "Pawn";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'r') {
-					type = "Rook";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'n') {
-					type = "Knight";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'b') {
-					type = "Bishop";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'k') {
-					type = "King";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'q') {
-					type = "Queen";
-					color = "White";
-					board[row][col] = new Piece(color, type, row, col++);
-				}else if (x == 'P'){
-					type = "Pawn";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				}else if (x == 'R') {
-					type = "Rook";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'N') {
-					type = "Knight";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'B') {
-					type = "Bishop";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'K') {
-					type = "King";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				} else if (x == 'Q') {
-					type = "Queen";
-					color = "Black";
-					board[row][col] = new Piece(color, type, row, col++);
-				}else if (x == '/'){
-					row++;
-					col = 0;
-				}else{
-					int xx = x-'0';
-					for (int ii = 0; ii < xx; ii++){
-						board[row][col] = new Piece(color, type, row, col++);
-					}
-				}
-				
-			}
-		} else {
-			// row
-			for (int i = 0; i < 8; i++) {
-				// col
-				for (int j = 0; j < 8; j++) {
-					board[i][j] = new Piece("null", "null", i, j);
-				}
-			}
+		else {
+			System.out.println("no board for user");
 		}
 		System.out.println("grabbing board");
-		return board;
+		return b;
 	}
 
 	@Override
@@ -671,11 +526,8 @@ public class ChessServiceImpl implements ChessService {
 				}
 				break;
 		}
-    System.out.println(board);
-	System.out.println(from);
-	System.out.println(to);
-	System.out.println(board.doMove(new com.github.bhlangonijr.chesslib.move.Move(from,to)));
-    System.out.println(board.toString());
+		System.out.println(board.doMove(new com.github.bhlangonijr.chesslib.move.Move(from,to)));
+    	System.out.println(board.toString());
 		b.setfenNotation(board.getFen());
 		b.setTurn(b.getTurn()+1);
 		repo.save(b);
@@ -689,38 +541,6 @@ public class ChessServiceImpl implements ChessService {
 			if(opt.get(i).getBlackId() == null || opt.get(i).getWhiteId() == null )
 			boards.add(opt.get(i).getBoardId());
 		}
-		/*Piece[][][] boards = new Piece[opt.size()][][];
-		for (int j = 0; j < opt.size(); j++) {
-			Boards b = opt.get(j);
-			Piece[][] board = new Piece[8][8];
-			String sBoard = b.getBoardEncode();
-			for (int i = 0; i < sBoard.length(); i += 2) {
-				char x = sBoard.charAt(i);
-				char y = sBoard.charAt(i + 1);
-				String color = null;
-				if (y == 'b') {
-					color = "Black";
-				} else if (y == 'w') {
-					color = "White";
-				}
-				String type = null;
-				if (x == 'p') {
-					type = "Pawn";
-				} else if (x == 'r') {
-					type = "Rook";
-				} else if (x == 'n') {
-					type = "Knight";
-				} else if (x == 'b') {
-					type = "Bishop";
-				} else if (x == 'k') {
-					type = "King";
-				} else if (x == 'q') {
-					type = "Queen";
-				}
-				board[i / 8 / 2][i / 2 % 8] = new Piece(color, type, i / 8 / 2, i / 2 % 8);
-			}
-			boards[j] = board;
-		}*/
 		int[] rooms= new int[boards.size()];
 		for(int i = 0; i < boards.size(); i++) {
 			rooms[i] = (int)boards.get(i);

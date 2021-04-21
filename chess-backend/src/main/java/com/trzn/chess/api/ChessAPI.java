@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.trzn.chess.DTO.Move;
-import com.trzn.chess.DTO.Piece;
+import com.trzn.chess.entity.Boards;
 import com.trzn.chess.service.ChessService;
 
 @RestController
@@ -24,91 +24,8 @@ public class ChessAPI {
 	ChessService service;
 
 	@GetMapping(value = "getBoard/{userId}")
-	public ResponseEntity<Piece[][]> getBoard(@PathVariable String userId) {
-		String board = "";
-		Piece[][] b = service.getBoard(userId);
-		for (int i = 0; i < 8; i++) {
-			int empty = 0;
-			for (int j = 0; j < 8; j++) {
-				Piece p = b[i][j];
-				String type = p.getType();
-				if (type == "Pawn") {
-					if (empty != 0) {
-						board += empty;
-						empty = 0;
-					}
-					if (p.getColor() == "White")
-						board += "P";
-					else
-						board += "p";
-				}
-
-				else if (type == "Knight") {
-					if (empty != 0) {
-						board += empty;
-						empty = 0;
-					}
-					if (p.getColor() == "White")
-						board += "K";
-					else
-						board += "k";
-				}
-
-				else if (type == "Bishop") {
-					if (empty != 0) {
-						board += empty;
-						empty = 0;
-					}
-					if (p.getColor() == "White")
-						board += "B";
-					else
-						board += "b";
-				}
-
-				else if (type == "Rook") {
-					if (empty != 0) {
-						board += empty;
-						empty = 0;
-					}
-					if (p.getColor() == "White")
-						board += "R";
-					else
-						board += "r";
-				}
-
-				else if (type == "Queen") {
-					if (empty != 0) {
-						board += empty;
-						empty = 0;
-					}
-					if (p.getColor() == "White")
-						board += "Q";
-					else
-						board += "q";
-				}
-
-				else if (type == "King") {
-					if (empty != 0) {
-						board += empty;
-						empty = 0;
-					}
-					if (p.getColor() == "White")
-						board += "K";
-					else
-						board += "k";
-				} else
-					empty++;
-
-			}
-			if (empty != 0) {
-				board += empty;
-				empty = 0;
-			}
-			if (i != 7)
-				board += "/";
-
-		}
-		return new ResponseEntity<Piece[][]>(b, HttpStatus.OK);
+	public ResponseEntity<Boards> getBoard(@PathVariable String userId) {
+		return new ResponseEntity<Boards>(service.getBoard(userId), HttpStatus.OK);
 	}
 
 	@GetMapping(value = "getBoards")
@@ -138,8 +55,8 @@ public class ChessAPI {
 	}
 
 	@PostMapping(value = "chessMove")
-	public ResponseEntity<Piece[][]> chessMove(@RequestBody Move move) {
+	public ResponseEntity<Boards> chessMove(@RequestBody Move move) {
 		service.chessMove(move);
-		return new ResponseEntity<Piece[][]>(service.getBoard(move.getUserId()), HttpStatus.OK);
+		return new ResponseEntity<Boards>(service.getBoard(move.getUserId()), HttpStatus.OK);
 	}
 }
